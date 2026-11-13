@@ -1,0 +1,50 @@
+erDiagram
+    materias ||--o{ inscripciones : "tiene inscritos"
+    materias ||--o{ examenes : "programa"
+    estudiantes ||--o{ inscripciones : "se inscribe en"
+    estudiantes ||--o{ asistencias : "registra"
+    examenes ||--o{ asistencias : "contiene"
+
+    materias {
+        INTEGER id PK
+        TEXT codigo
+        TEXT nombre
+        TEXT grupo
+        TEXT fecha_actualizacion
+    }
+
+    estudiantes {
+        INTEGER id PK
+        TEXT registro UK "Único"
+        TEXT apellidos_nombres
+        TEXT carrera
+        TEXT plan
+        TEXT telefono "Nullable"
+        TEXT email "Nullable"
+        TEXT foto "Base64 (Nullable)"
+    }
+
+    inscripciones {
+        INTEGER id PK
+        INTEGER id_materia FK
+        INTEGER id_estudiante FK
+        TEXT estado "ACTIVO | RETIRADO"
+    }
+
+    examenes {
+        INTEGER id PK
+        INTEGER id_materia FK
+        TEXT titulo
+        TEXT fecha
+        TEXT hora
+        TEXT aula
+        INTEGER activo "1 o 0"
+    }
+
+    asistencias {
+        INTEGER id PK
+        INTEGER id_examen FK
+        INTEGER id_estudiante FK
+        TEXT fecha_hora
+        TEXT estado "PRESENTE | ATRASADO | AUSENTE"
+    }
